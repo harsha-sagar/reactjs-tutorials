@@ -3,27 +3,38 @@ import ReactDOM from 'react-dom';
 
 /*
 owner component or parent component or composite component
-also example for class component
 */
 class App extends React.Component{
     constructor(){
         super();
         this.state = {
-            txt: 'this is the state text',
+            red: 'red',
+            green: 'green',
+            blue: 'blue',
             cat: 0
         };
         this.update = this.update.bind(this);
     }
     update(e){
+        console.log(ReactDOM.findDOMNode(this.refs.red).childNodes[0].value);
         this.setState({
-            txt: e.target.value
+            red: ReactDOM.findDOMNode(this.refs.red).childNodes[0].value,
+            green: ReactDOM.findDOMNode(this.refs.green).childNodes[0].value,
+            blue: ReactDOM.findDOMNode(this.refs.blue).childNodes[0].value
         });
     }
     render(){
         return (
             <div>
-                <Widget txt={this.state.txt} update={this.update}/>
-                <Widget txt={this.state.txt} update={this.update}/>
+                <Widget ref="red"
+                        txt={this.state.red}
+                        update={this.update}/>
+                <Widget ref="green"
+                        txt={this.state.green}
+                        update={this.update}/>
+                <Widget ref="blue"
+                        txt={this.state.blue}
+                        update={this.update}/>
             </div>
         );
     }
@@ -40,16 +51,17 @@ App.defaultProps = {
 
 /*
 child component or ownee component
-also example for functional component
 */
-const Widget = (props) => {
-    return (
-        <div>
-            <input type="text"
-                    onChange={props.update}/>
-            <h1>{props.txt}</h1>
-        </div>
-    );
+class Widget extends React.Component{
+    render(){
+        return (
+            <div>
+                <input type="text"
+                       onChange={this.props.update} value={this.props.txt}/>
+                <h1>{this.props.txt}</h1>
+            </div>
+        );
+    }
 }
 
 ReactDOM.render(
