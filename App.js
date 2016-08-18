@@ -1,44 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-/*
-owner component or parent component or composite component
-*/
 class App extends React.Component{
-    constructor(){
-        super();
-        this.state = {
-            red: 'red',
-            green: 'green',
-            blue: 'blue',
-            cat: 0
-        };
-        this.update = this.update.bind(this);
-    }
-    update(e){
-        console.log(ReactDOM.findDOMNode(this.refs.red).childNodes[0].value);
-        this.setState({
-            red: ReactDOM.findDOMNode(this.refs.red).childNodes[0].value,
-            green: ReactDOM.findDOMNode(this.refs.green).childNodes[0].value,
-            blue: ReactDOM.findDOMNode(this.refs.blue).childNodes[0].value
-        });
-    }
     render(){
         return (
-            <div>
-                <Widget ref="red"
-                        txt={this.state.red}
-                        update={this.update}/>
-                <Widget ref="green"
-                        txt={this.state.green}
-                        update={this.update}/>
-                <Widget ref="blue"
-                        txt={this.state.blue}
-                        update={this.update}/>
-            </div>
+            <Button>I <Heart/> React</Button>
+/*
+children of Button component - I <Heart/> React
+Heart component becomes child component of Button component
+*/
         );
     }
 }
+
 
 App.propTypes = {
   txt: React.PropTypes.string,
@@ -49,19 +23,19 @@ App.defaultProps = {
     txt: 'this is the default text'
 }
 
-/*
-child component or ownee component
-*/
-class Widget extends React.Component{
+class Button extends React.Component{
     render(){
         return (
-            <div>
-                <input type="text"
-                       onChange={this.props.update} value={this.props.txt}/>
-                <h1>{this.props.txt}</h1>
-            </div>
+            <button>{this.props.children}</button>
+/*
+accessing children of Button component
+*/
         );
     }
+}
+
+const Heart = () => {
+    return <span className="glyphicon glyphicon-heart"></span>
 }
 
 ReactDOM.render(
