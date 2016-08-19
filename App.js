@@ -16,43 +16,24 @@ class App extends React.Component{
     }
     componentWillMount(){
         console.log('mounting');
+        this.setState({
+            m: 2
+        });
     }
-/*
-componentWillMount is a component's lifecycle method
-will be invoked only once
-will be invoked before render method
-*/
-
     render(){
         console.log('rendering');
         return (
-            <button onClick={this.update}>{this.state.val}</button>
+            <button onClick={this.update}>{this.state.val * this.state.m}</button>
         );
     }
-/*
-render is a component's lifecycle method
-will be invoked multiple times as long as component's state properties are updated
-will be invoked after componentWillMount method
-*/
-
     componentDidMount(){
         console.log('mounted');
+        this.inc = setInterval(this.update, 500);
     }
-/*
-componentWillMount is a component's lifecycle method
-will be invoked only once
-will be invoked after render method
-*/
-
     componentWillUnmount(){
         console.log('unmount');
+        clearInterval(this.inc);
     }
-/*
-componentWillUnmount is a component's lifecycle method
-will be invoked only once
-will be invoked just before the destruction of component
-*/
-
 }
 
 class Wrapper extends React.Component{
@@ -61,18 +42,10 @@ class Wrapper extends React.Component{
     }
     mount(){
         ReactDOM.render(<App/>, document.getElementById('a'));
-/*
-Attaching a component
-*/
     }
-
     unmount(){
         ReactDOM.unmountComponentAtNode(document.getElementById('a'));
-/*
-Removing a component
-*/
     }
-
     render(){
         return (
             <div>
