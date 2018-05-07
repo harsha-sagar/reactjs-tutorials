@@ -86,3 +86,4 @@ Removing a component
 
 // export default App
 export default Wrapper
+
