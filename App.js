@@ -13,7 +13,6 @@ Heart component becomes child component of Button component
     }
 }
 
-
 App.propTypes = {
   txt: React.PropTypes.string,
   cat: React.PropTypes.number.isRequired
@@ -39,6 +38,6 @@ const Heart = () => {
 }
 
 ReactDOM.render(
-    <App cat={5}/>,
+    <App />,
     document.getElementById('app')
 );
